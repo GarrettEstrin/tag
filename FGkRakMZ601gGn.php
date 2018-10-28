@@ -1,9 +1,15 @@
 <?php 
-  function getNames(){
-    return ["Garrett, Mark"];
+
+  require_once("./config.php");
+  if(!doesTableExist($link)){
+    mysqli_query($link, "CREATE TABLE tag (
+      name VARCHAR(30) NOT NULL PRIMARY KEY,
+      it BOOLEAN
+      )");
+      echo "Tag Table Sucessfully Created";
   }
 
-  $names = getNames();
+  $names = getNames($link);
 ?>
 
 <!DOCTYPE html>
@@ -23,11 +29,28 @@
 </head>
 <body>
   <div class="container">
-    <h1>Who's it?</h1>
-    <ul>
-      <li><input type="radio" value="Garrett" name="current" id="Garrett"><label for="Garrett">Garrett</label></li>
-      <li><input type="submit"></li>
-    </ul>
+    <form action="./tagPlayer.php" method="POST">
+      <h1>Who's it?</h1>
+      <ul>
+        <?php if(count($names) == 0){
+          echo "No players added";
+        } ?>
+        <?php for($i = 0;$i<count($names);$i++){?>
+          <li><input type="radio" value="<?php echo $names[$i][0] ?>" name="current" id="<?php echo $names[$i][0] ?>"<?php if($names[$i][1] == 1){echo " checked";}?>><label for="<?php echo $names[$i][0] ?>"><?php echo $names[$i][0] ?></label></li>
+        <?php } ?>
+        <?php if(count($names) != 0){ ?>
+          <li><input type="submit"></li>
+        <?php } ?>
+      </ul>
+    </form>
+
+    <form action="./addPlayer.php" method="POST">
+      <h2>Add a new player</h2>
+      <ul>
+      <li><input type="text" name="newPlayer" id="newPlayer"><label for="newPlayer">New Player's Name</label></li>
+      </ul>
+      <input type="submit">
+    </form>
   </div>
 </body>
 </html>
