@@ -1,9 +1,13 @@
 <?php 
   require_once("./config.php");
   $names = getNames($link);
+  $it = "No One";
   for($i = 0;$i<count($names);$i++){
-    if($names[$i][1] == 1){
-      $it = $names[$i][0];
+    if(array_key_exists($i, $names) && $names[$i]["it"] == 1){
+      $it = $names[$i]["name"];
+    }
+    else {
+      $it = "No One";
     }
   }
   date_default_timezone_set('America/Los_Angeles');

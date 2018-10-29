@@ -36,7 +36,7 @@
           echo "No players added";
         } ?>
         <?php for($i = 0;$i<count($names);$i++){?>
-          <li><input type="radio" value="<?php echo $names[$i][0] ?>" name="current" id="<?php echo $names[$i][0] ?>"<?php if($names[$i][1] == 1){echo " checked";}?>><label for="<?php echo $names[$i][0] ?>"><?php echo $names[$i][0] ?></label></li>
+          <li><input type="radio" value="<?php echo $names[$i]["name"] ?>" name="current" id="<?php echo $names[$i]["name"] ?>"<?php if($names[$i]["it"] == 1){echo " checked";}?>><label for="<?php echo $names[$i]["name"] ?>"><?php echo $names[$i]["name"] ?></label><input type="checkbox" value="<?php echo $names[$i]["name"] ?>" name="delete<?php echo $i ?>" id="delete-<?php echo $names[$i]["name"]?>"><label for="delete-<?php echo $names[$i]["name"]?>">Delete Player</label></li>
         <?php } ?>
         <?php if(count($names) != 0){ ?>
           <li><input type="submit"></li>
